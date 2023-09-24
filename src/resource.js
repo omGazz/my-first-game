@@ -2,10 +2,10 @@ class Resources {
     constructor() {
         // Everything we plan to load
         this.toLoad = {
-            sky: "/sprites/sky.png",
-            ground: "/sprites/ground.png",
-            hero: "/sprites/hero-sheet.png",
-            shadow: "/sprites/shadow.png",
+            sky: "/public/sprites/sky.png",
+            ground: "/public/sprites/ground.png",
+            hero: "/public/sprites/hero-sheet.png",
+            shadow: "/public/sprites/shadow.png",
         };
 
         // A bucket to keep all of our images

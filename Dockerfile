@@ -17,7 +17,7 @@ COPY . .
 USER node
 
 # expose the port 5173
-EXPOSE 5173
+EXPOSE 3000
 
 #run the command
-CMD ["node", "main.js"]
+CMD ["node", "server.js"]

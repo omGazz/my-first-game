@@ -4,7 +4,6 @@ import { Sprite } from "./src/sprite.js";
 import { Vector2 } from "./src/Vector2.js";
 import { DOWN, Input, LEFT, RIGHT, UP } from "./src/Input.js";
 
-
 const canvas = document.querySelector("#game-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -72,3 +71,5 @@ const draw = () => {
 // we want to be sure to load the image when it is ready
 const gameLoop = new GameLoop(update, draw);
 gameLoop.start();
+
+
