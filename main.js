@@ -1,12 +1,13 @@
-import { resources } from "./src/resource";
-import { GameLoop } from "./src/GameLoop";
-import { Sprite } from "./src/sprite";
-import { Vector2 } from "./src/Vector2";
-import { DOWN, Input, LEFT, RIGHT, UP } from "./src/Input";
-import "./style.css";
+import { resources } from "./src/resource.js";
+import { GameLoop } from "./src/GameLoop.js";
+import { Sprite } from "./src/sprite.js";
+import { Vector2 } from "./src/Vector2.js";
+import { DOWN, Input, LEFT, RIGHT, UP } from "./src/Input.js";
+
 
 const canvas = document.querySelector("#game-canvas");
 const ctx = canvas.getContext("2d");
+
 
 const skySprite = new Sprite({
   resource: resources.images.sky,
