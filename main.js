@@ -3,6 +3,8 @@ import { GameLoop } from "./src/GameLoop.js";
 import { Sprite } from "./src/sprite.js";
 import { Vector2 } from "./src/Vector2.js";
 import { DOWN, Input, LEFT, RIGHT, UP } from "./src/Input.js";
+import { gridCells } from "./src/helpers/grid.js";
+import { moveTowards } from "./src/helpers/moveToward.js";
 
 const canvas = document.querySelector("#game-canvas");
 const ctx = canvas.getContext("2d");
@@ -24,37 +26,59 @@ const hero = new Sprite({
   hFrames: 3,
   vFrames: 8,
   frame: 1, // this is the frame on the image we want to show
+  position: new Vector2(gridCells(6), gridCells(5))
 });
+
+const heroDestinationPosition = hero.position.duplicate();
 
 const shadow = new Sprite({
   resource: resources.images.shadow,
   frameSize: new Vector2(32, 32),
 });
 
-const heroPos = new Vector2(16 * 3, 16 * 5);
 const input = new Input();
 
 const update = () => {
-  console.log(input.direction);
+
+  const distance = moveTowards(hero, heroDestinationPosition, 1)
+  const hasArrived = distance <= 1;
+   if(hasArrived) {
+    tryMove()
+   }
+
+
+};
+
+const tryMove = () => {
+
+  if(!input.direction) return;
+
+  let nextX = heroDestinationPosition.x;
+  let nextY = heroDestinationPosition.y;
+  const gridSize = 16;
+
   switch (input.direction) {
     case DOWN:
-      heroPos.y += 1;
+      nextY += gridSize;
       hero.frame = 0;
       break;
     case UP:
-      heroPos.y -= 1;
+      nextY -= gridSize;
       hero.frame = 6;
       break;
     case LEFT:
-      heroPos.x -= 1;
+      nextX -= gridSize
       hero.frame = 9;
       break;
     case RIGHT:
-      heroPos.x += 1;
+      nextX += gridSize      
       hero.frame = 3;
       break;
   }
-};
+
+  heroDestinationPosition.x = nextX;
+  heroDestinationPosition.y = nextY;
+}
 
 const draw = () => {
   skySprite.drawImage(ctx, 0, 0);
@@ -62,8 +86,8 @@ const draw = () => {
 
   // center the hero in the cell
   const heroOffset = new Vector2(-8, -21);
-  const heroPosX = heroPos.x + heroOffset.x;
-  const heroPosY = heroPos.y + heroOffset.y;
+  const heroPosX = hero.position.x + heroOffset.x;
+  const heroPosY = hero.position.y + heroOffset.y;
   shadow.drawImage(ctx, heroPosX, heroPosY);
   hero.drawImage(ctx, heroPosX, heroPosY);
 };
